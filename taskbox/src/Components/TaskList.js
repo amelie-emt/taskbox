@@ -48,7 +48,8 @@ export function PureTaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
     const tasksInOrder = [
         ...tasks.filter(t => t.state === 'TASK_PINNED'),
-        ...tasks.filter(t => t.state !== 'TASK_PINNED'),
+        ...tasks.filter(t => t.state !== 'TASK_INBOX'),
+        ...tasks.filter(t => t.state !== 'TASK_ARCHIVED'),
     ];
 
     return (
@@ -73,7 +74,7 @@ PureTaskList.defaultProps = {
 
 export default connect(
     ({ tasks }) => ({
-        tasks: tasks.filter(t => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'),
+        tasks: tasks.filter(t => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'|| t.state === 'TASK_ARCHIVED'),
     }),
     dispatch => ({
         onArchiveTask: id => dispatch(archiveTask(id)),
